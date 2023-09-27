@@ -1,11 +1,12 @@
-const CourseList = ({ courses }) => {
-    return (
-        <div>
-            {Object.values(courses).map(course => (
-                <h4 key={course.number}> {course.term} CS {course.number}: {course.title}</h4>
-            ))}
-        </div>
-    );
-};
+import './CourseList.css';
+import Course from './Course';
+
+const CourseList = ({ courses }) => (
+    <div className="course-list">
+        {Object.values(courses).map(course => (
+            <Course key={course.number} course={course} />
+        ))}
+    </div>
+);
 
 export default CourseList;

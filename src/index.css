@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#course-meeting{
+  position: absolute;
+  bottom: 0;
+}
+
+#banner-image{
+  /* outline: white dashed 2px; */
+  display: block;
+  margin: auto;
+  position: relative;
+  top:-100px;
+}
+

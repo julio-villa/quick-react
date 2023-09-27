@@ -1,9 +1,8 @@
-const Banner = ({ title }) => {
-  return (
+const Banner = ({ title }) => (
     <div className="banner">
-      <h1>{title}</h1>
+        <img id="banner-image" src="./books-notes-student-svgrepo-com.svg" className="App-logo" alt="logo" />
+        <h1>{title}</h1>
     </div>
-  );
-};
+);
 
 export default Banner;
