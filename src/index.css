@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: 10px;
 }
 
 code {
@@ -18,11 +19,13 @@ code {
 }
 
 #banner-image{
-  /* outline: white dashed 2px; */
+  width: 60%;
   display: block;
-  margin: auto;
-  position: relative;
-  top:-65px;
-  
+  margin-left: auto;
+  margin-right: auto;
+  /* outline: white dashed 2px; */
 }
+
+
+
 
