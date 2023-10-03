@@ -26,6 +26,24 @@ code {
   /* outline: white dashed 2px; */
 }
 
+/* TermPage */
+div.btn-group{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* CourseList */
+.course-list {
+  display: grid;  
+  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+}
+
+/* Course */
+.course .selected {
+  background-color:lemonchiffon;
+  color: green;
+}
 
 
 

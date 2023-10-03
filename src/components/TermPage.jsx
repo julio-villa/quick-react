@@ -2,8 +2,7 @@ import { useState } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CourseList from './CourseList';
-import './TermPage.css';
-
+import '../index.css';
 
 const terms = {
   Fall: 'Fall term',
@@ -30,7 +29,7 @@ const TermSelector = ({ selection, setSelection }) => (
 );
 
 const Menu = ({ selection }) => (
-  <div className="card" >
+  <div className="card" style={{textAlign: 'center'}}>
     {terms[selection]}
   </div>
 );
@@ -38,12 +37,19 @@ const Menu = ({ selection }) => (
 
 const TermPage = ({ data }) => {
   const [selection, setSelection] = useState('Fall');
+  const[selected, setCourseSelection] = useState([]);
+
+  const toggleSelected = (item) => setCourseSelection(
+    selected.includes(item)
+    ? selected.filter(x => x !== item)
+    : [...selected, item]
+  );
 
   return (
     <div>
       <TermSelector selection={selection} setSelection={setSelection} />
       <Menu selection={selection} />
-      <CourseList courses={Object.values(data.courses).filter(course => course.term === selection)} />
+      <CourseList courses={Object.values(data.courses).filter(course => course.term === selection)} selected = {selected} toggleSelected = {toggleSelected}/>
     </div>
   );
 };
