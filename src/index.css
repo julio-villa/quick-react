@@ -13,12 +13,12 @@ code {
     monospace;
 }
 
-#course-meeting{
+#course-meeting {
   position: absolute;
   bottom: 0;
 }
 
-#banner-image{
+#banner-image {
   width: 60%;
   display: block;
   margin-left: auto;
@@ -27,23 +27,45 @@ code {
 }
 
 /* TermPage */
-div.btn-group{
+div.btn-group {
   text-align: center;
   display: flex;
   justify-content: center;
+  float: left;
 }
 
 /* CourseList */
 .course-list {
-  display: grid;  
-  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 /* Course */
-.course .selected {
-  background-color:lemonchiffon;
+.course {
+  background-color: lemonchiffon;
   color: green;
 }
 
+#term-shedule-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+#schedule-btn {
+  margin-left: 60%;
+}
 
+.pop-up{
+  color: black;
+}
+
+.selected {
+  background-color: lemonchiffon;
+  color: green;
+}
+
+#modal-course-info {
+  margin-left: 5%;
+  margin-bottom: 3%;
+}
