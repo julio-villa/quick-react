@@ -38,13 +38,22 @@ div.btn-group {
 .course-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 /* Course */
 .course {
   background-color: lemonchiffon;
   color: green;
+  flex-grow: 1;
 }
+.course-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 
 #term-shedule-buttons {
   display: flex;
@@ -63,9 +72,19 @@ div.btn-group {
 .selected {
   background-color: lemonchiffon;
   color: green;
+  pointer-events: none; /* Disable interaction for selected courses */
 }
 
 #modal-course-info {
   margin-left: 5%;
   margin-bottom: 3%;
+}
+
+.conflict {
+  background-color: lightgray;
+  color: darkgray;
+  flex-grow: 1; /* Make the conflict div grow to fill available space */
+  display: flex; /* Enable flex layout for conflict div */
+  flex-direction: column; /* Stack child elements vertically */
+  justify-content: space-between; /* Push content to the top and bottom */
 }

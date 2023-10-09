@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CourseList from './CourseList';
 import '../index.css';
 import Modal from './Modal';
 import PopUp from './PopUp';
+import { detectTimeConflicts, calculateConflicts, isCourseInList } from '../utilities/conflictFunctions';
 
 const terms = {
   Fall: 'Fall term',
@@ -41,19 +42,26 @@ const TermPage = ({ data }) => {
   const [selection, setSelection] = useState('Fall');
   const [selected, setCourseSelection] = useState([]);
   const [selectedInfo, setSelectedInfo] = useState([]);
+  const [conflictingCourses, setConflictingCourses] = useState([]); // State to track conflicting courses
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    // Calculate conflicts whenever selectedInfo or selection changes
+    const conflicts = calculateConflicts(selectedInfo, data.courses);
+    setConflictingCourses(conflicts);
+  }, [selectedInfo, selection, data.courses]);
+
   const toggleSelected = (item) => {
+    console.log(isCourseInList(item, conflictingCourses));
     const courseIdentifier = item.term + item.number;
 
     if (selected.includes(courseIdentifier)) {
       const newSelected = selected.filter(x => x !== courseIdentifier);
       setCourseSelection(newSelected);
 
-      const newSelectedInfo = selectedInfo.filter((info) => info.identifier !== courseIdentifier);
+      const newSelectedInfo = selectedInfo.filter(info => info.identifier !== courseIdentifier);
       setSelectedInfo(newSelectedInfo);
-    } 
-    else {
+    } else {
       const newSelected = [...selected, courseIdentifier];
       setCourseSelection(newSelected);
 
@@ -64,12 +72,42 @@ const TermPage = ({ data }) => {
         title: item.title,
         meets: item.meets,
       };
-      setSelectedInfo((prevSelectedInfo) => [...prevSelectedInfo, newSelectedCourse]);
+
+      // Check for time conflicts
+      const hasTimeConflict = detectTimeConflicts([...selectedInfo, newSelectedCourse]);
+
+      if (hasTimeConflict) {
+        // Handle the conflict (e.g., show a message to the user)
+        console.log('Time conflict detected! This course was not added.');
+        // Optionally, you can prevent adding the course or display a message.
+      } else {
+        // If no conflict, add the new course to selectedInfo
+        setSelectedInfo([...selectedInfo, newSelectedCourse]);
+      }
     }
   };
 
+  // const calculateConflicts = (selectedCourses, allCourses) => {
+  //   const conflictingCourses = [];
+  
+  //   Object.values(allCourses).forEach((course) => {
+  //     if (!selectedCourses.includes(course.identifier)) {
+  //       // Check for time conflicts
+  //       if (detectTimeConflicts([...selectedCourses, course])) {
+  //         conflictingCourses.push(course);
+  //       }
+  //     }
+  //   });
+  
+  //   return conflictingCourses;
+  // };
+
+  console.log('selected', selectedInfo);
+  console.log('conflictin', conflictingCourses) 
+
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
+
   return (
     <div>
       <div id="term-shedule-buttons">
@@ -80,7 +118,13 @@ const TermPage = ({ data }) => {
         </Modal>
       </div>
       <Menu selection={selection} />
-      <CourseList courses={Object.values(data.courses).filter(course => course.term === selection)} selected={selected} toggleSelected={toggleSelected} />
+      <CourseList
+        courses={Object.values(data.courses).filter(course => course.term === selection)}
+        selected={selected}
+        toggleSelected={toggleSelected}
+        selectedInfo={selectedInfo}
+        conflictingCourses={conflictingCourses}
+      />
     </div>
   );
 };
