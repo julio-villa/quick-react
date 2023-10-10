@@ -77,33 +77,15 @@ const TermPage = ({ data }) => {
       const hasTimeConflict = detectTimeConflicts([...selectedInfo, newSelectedCourse]);
 
       if (hasTimeConflict) {
-        // Handle the conflict (e.g., show a message to the user)
         console.log('Time conflict detected! This course was not added.');
-        // Optionally, you can prevent adding the course or display a message.
       } else {
-        // If no conflict, add the new course to selectedInfo
         setSelectedInfo([...selectedInfo, newSelectedCourse]);
       }
     }
   };
 
-  // const calculateConflicts = (selectedCourses, allCourses) => {
-  //   const conflictingCourses = [];
-  
-  //   Object.values(allCourses).forEach((course) => {
-  //     if (!selectedCourses.includes(course.identifier)) {
-  //       // Check for time conflicts
-  //       if (detectTimeConflicts([...selectedCourses, course])) {
-  //         conflictingCourses.push(course);
-  //       }
-  //     }
-  //   });
-  
-  //   return conflictingCourses;
-  // };
-
-  console.log('selected', selectedInfo);
-  console.log('conflictin', conflictingCourses) 
+  // console.log('selected', selectedInfo);
+  // console.log('conflictin', conflictingCourses);
 
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);

@@ -16,6 +16,18 @@ code {
 #course-meeting {
   position: absolute;
   bottom: 0;
+  
+}
+
+#spacer{
+  width: 200px;
+  height: 140px;
+  margin-right: 0px;
+}
+
+header.App-header{
+  height: 1%;
+  min-height: 0px;
 }
 
 #banner-image {
@@ -72,7 +84,7 @@ div.btn-group {
 .selected {
   background-color: lemonchiffon;
   color: green;
-  pointer-events: none; /* Disable interaction for selected courses */
+  pointer-events: none;
 }
 
 #modal-course-info {
@@ -83,8 +95,17 @@ div.btn-group {
 .conflict {
   background-color: lightgray;
   color: darkgray;
-  flex-grow: 1; /* Make the conflict div grow to fill available space */
-  display: flex; /* Enable flex layout for conflict div */
-  flex-direction: column; /* Stack child elements vertically */
-  justify-content: space-between; /* Push content to the top and bottom */
+  flex-grow: 1; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+}
+
+.form-group{
+  color: black;
+  font-size: medium;
+}
+
+.mb-3{
+  color: black;
 }

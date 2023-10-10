@@ -6,6 +6,13 @@ import Banner from './components/Banner';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useJsonQuery } from './utilities/fetch';
 import TermPage from './components/TermPage';
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import CourseForm from './components/CourseForm';
+
+const CourseFormForUrl = ({ courses }) => {
+  const { course } = useParams();
+  return <CourseForm course={courses[course]} />;
+};
 
 const Main = () => {
   const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
@@ -13,13 +20,20 @@ const Main = () => {
   if (error) return <h1>Error loading user data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading user data...</h1>;
   if (!data) return <h1>No user data found</h1>;
-  
+
   return (
-    <header className="App-header">
-      <Banner className="course-list" title={data.title} />
-      <TermPage data = { data } />
-    </header>
-    );
+    <div>
+      <header className="App-header">
+        <Banner className="course-list" title={data.title} />
+      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<TermPage data={data} />} />
+          <Route path="/courses/:course" element={<CourseFormForUrl courses={data.courses} />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 const queryClient = new QueryClient();
