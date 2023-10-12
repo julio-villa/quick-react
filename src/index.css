@@ -44,6 +44,7 @@ div.btn-group {
   display: flex;
   justify-content: center;
   float: left;
+  padding-inline-end: 65%;
 }
 
 /* CourseList */
@@ -71,10 +72,11 @@ div.btn-group {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* padding-inline-end: 25%; */
 }
 
 #schedule-btn {
-  margin-left: 60%;
+  /* margin-left: 65%; */
 }
 
 .pop-up{

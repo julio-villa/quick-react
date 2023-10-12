@@ -5,11 +5,13 @@ import { useFormData } from '../utilities/useFormData';
 
 const validateUserData = (key, val) => {
     switch (key) {
-        case 'firstName': case 'lastName':
-            return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-        //     case 'email':
-        //       return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
-        //     default: return '';
+        case 'courseName':
+            return val.length >= 2 ? '' : 'Course title must be at least 2 characters long.';
+        case 'courseTime':
+            const meetingTimePattern = /^(M|T|W|Th|F|Sa|Su)([a-zA-Z]*) (\d{1,2}:\d{2}-\d{1,2}:\d{2})*$/;
+            return meetingTimePattern.test(val) ? '' : 'Must contain days and start-end, e.g., MWF 12:00-13:20".'
+        default:
+            return '';
     }
 };
 
@@ -46,7 +48,7 @@ const CourseForm = ({ course }) => {
 
     return (
         <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
-            <h2>Edit details for CS: {course.number}</h2>
+            <h2>Edit details for CS{course.number}</h2>
             <br></br>
             <InputField name="courseName" text="Change Course Title" state={state} change={change} />
             <InputField name="courseTime" text="Change Course Meeting Time" state={state} change={change} />

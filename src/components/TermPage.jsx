@@ -42,11 +42,10 @@ const TermPage = ({ data }) => {
   const [selection, setSelection] = useState('Fall');
   const [selected, setCourseSelection] = useState([]);
   const [selectedInfo, setSelectedInfo] = useState([]);
-  const [conflictingCourses, setConflictingCourses] = useState([]); // State to track conflicting courses
+  const [conflictingCourses, setConflictingCourses] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Calculate conflicts whenever selectedInfo or selection changes
     const conflicts = calculateConflicts(selectedInfo, data.courses);
     setConflictingCourses(conflicts);
   }, [selectedInfo, selection, data.courses]);
@@ -73,9 +72,7 @@ const TermPage = ({ data }) => {
         meets: item.meets,
       };
 
-      // Check for time conflicts
       const hasTimeConflict = detectTimeConflicts([...selectedInfo, newSelectedCourse]);
-
       if (hasTimeConflict) {
         console.log('Time conflict detected! This course was not added.');
       } else {
@@ -83,9 +80,6 @@ const TermPage = ({ data }) => {
       }
     }
   };
-
-  // console.log('selected', selectedInfo);
-  // console.log('conflictin', conflictingCourses);
 
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);

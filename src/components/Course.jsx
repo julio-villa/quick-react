@@ -3,7 +3,7 @@ import { isCourseInList } from '../utilities/conflictFunctions';
 import { Link } from 'react-router-dom';
 
 
-const Course = ({ testkey, id, course, selected, toggleSelected, conflictingCourses }) => {
+const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) => {
     return (
         <div className='course-container'>
             {isCourseInList(course, conflictingCourses) ?
@@ -11,7 +11,10 @@ const Course = ({ testkey, id, course, selected, toggleSelected, conflictingCour
                     <div className='conflict'>
                         <h4 key={course.number}> {course.term} CS {course.number}: {course.title}</h4>
                         <br></br>
-                        <h5 id="course-meeting">Meets: {course.meets}</h5>
+                        <div id='course-meeting'>
+                            <h5 >Meets: {course.meets}</h5>
+                            <p><Link to={`/courses/${course.term.charAt(0) + course.number}`}>Edit course details</Link></p>
+                        </div>
                     </div>
                 </div>
                 :
