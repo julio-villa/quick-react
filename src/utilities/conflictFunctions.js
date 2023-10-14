@@ -79,4 +79,3 @@ function filterObjectsFromArray(sourceArray, filterArray) {
         });
     });
 }
-

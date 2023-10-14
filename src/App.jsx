@@ -21,7 +21,6 @@ const Main = () => {
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading course data...</h1>;
   if (!data) return <h1>No course data found</h1>;
-  console.log(data)
 
   return (
     <div>

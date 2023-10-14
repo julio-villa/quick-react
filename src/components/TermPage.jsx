@@ -51,7 +51,6 @@ const TermPage = ({ data }) => {
   }, [selectedInfo, selection, data.courses]);
 
   const toggleSelected = (item) => {
-    console.log(isCourseInList(item, conflictingCourses));
     const courseIdentifier = item.term + item.number;
 
     if (selected.includes(courseIdentifier)) {
