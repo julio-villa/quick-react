@@ -8,6 +8,7 @@ import { useJsonQuery } from './utilities/fetch';
 import TermPage from './components/TermPage';
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import CourseForm from './components/CourseForm';
+import { useDbData } from './utilities/firebase';
 
 const CourseFormForUrl = ({ courses }) => {
   const { course } = useParams();
@@ -15,11 +16,12 @@ const CourseFormForUrl = ({ courses }) => {
 };
 
 const Main = () => {
-  const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
+  const [data, isLoading, error] =  useDbData('/');
 
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading course data...</h1>;
   if (!data) return <h1>No course data found</h1>;
+  console.log(data)
 
   return (
     <div>

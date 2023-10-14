@@ -9,7 +9,11 @@ const validateUserData = (key, val) => {
             return val.length >= 2 ? '' : 'Course title must be at least 2 characters long.';
         case 'courseTime':
             const meetingTimePattern = /^(M|T|W|Th|F|Sa|Su)([a-zA-Z]*) (\d{1,2}:\d{2}-\d{1,2}:\d{2})*$/;
-            return meetingTimePattern.test(val) ? '' : 'Must contain days and start-end, e.g., MWF 12:00-13:20".'
+            if (val === '') {
+                return '';
+            } else {
+                return meetingTimePattern.test(val) ? '' : 'Must contain days and start-end, e.g., "MWF 12:00-13:20".';
+            }
         default:
             return '';
     }
@@ -18,7 +22,7 @@ const validateUserData = (key, val) => {
 const InputField = ({ name, text, state, change }) => (
     <div className="mb-3">
         <label htmlFor={name} className="form-label">{text}</label>
-        <input className="form-control" id={name} name={name}
+        <input className={`form-control ${state.errors && state.errors[name] ? 'is-invalid' : state.values[name] ? 'is-valid' : ''}`} id={name} name={name}
             defaultValue={state.values?.[name]} onChange={change} />
         <div className="invalid-feedback">{state.errors?.[name]}</div>
     </div>
