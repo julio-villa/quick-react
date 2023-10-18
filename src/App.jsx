@@ -9,6 +9,7 @@ import TermPage from './components/TermPage';
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import CourseForm from './components/CourseForm';
 import { useDbData } from './utilities/firebase';
+import Navigation from './components/Navigation';
 
 const CourseFormForUrl = ({ courses }) => {
   const { course } = useParams();
@@ -16,7 +17,8 @@ const CourseFormForUrl = ({ courses }) => {
 };
 
 const Main = () => {
-  const [data, isLoading, error] =  useDbData('/');
+
+  const [data, isLoading, error] = useDbData('/');
 
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading course data...</h1>;
@@ -24,10 +26,10 @@ const Main = () => {
 
   return (
     <div>
-      <header className="App-header">
-        <Banner className="course-list" title={data.title} />
-      </header>
       <BrowserRouter>
+        <header className="App-header">
+          <Banner className="course-list" title={data.title} />
+        </header>
         <Routes>
           <Route path="/" element={<TermPage data={data} />} />
           <Route path="/courses/:course" element={<CourseFormForUrl courses={data.courses} />} />
@@ -42,6 +44,7 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <Navigation />
       <div className="container-fluid">
         <Main />
       </div>

@@ -1,9 +1,11 @@
 import '../index.css';
 import { isCourseInList } from '../utilities/conflictFunctions';
 import { Link } from 'react-router-dom';
+import { useAuthState } from '../utilities/firebase';
 
 
 const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) => {
+    const [user] = useAuthState();
     return (
         <div className='course-container'>
             {isCourseInList(course, conflictingCourses) ?
@@ -13,7 +15,11 @@ const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) =>
                         <br></br>
                         <div id='course-meeting'>
                             <h5 >Meets: {course.meets}</h5>
+                            {user === null || user === undefined ? 
+                            ''
+                            :
                             <p><Link to={`/courses/${course.term.charAt(0) + course.number}`}>Edit course details</Link></p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -23,8 +29,12 @@ const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) =>
                         <h4 key={course.number}> {course.term} CS {course.number}: {course.title}</h4>
                         <div id="spacer"></div>
                         <div id='course-meeting'>
-                            <h5 >Meets: {course.meets}</h5>
+                        <h5 >Meets: {course.meets}</h5>
+                            {user === null || user === undefined ? 
+                            ''
+                            :
                             <p><Link to={`/courses/${course.term.charAt(0) + course.number}`}>Edit course details</Link></p>
+                            }
                         </div>
                     </div>
                 </div>
