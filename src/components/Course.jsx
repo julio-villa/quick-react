@@ -2,10 +2,13 @@ import '../index.css';
 import { isCourseInList } from '../utilities/conflictFunctions';
 import { Link } from 'react-router-dom';
 import { useAuthState } from '../utilities/firebase';
+import { useProfile } from '../utilities/profile';
 
 
 const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) => {
     const [user] = useAuthState();
+    const [profile, profileLoading, profileError] = useProfile();
+
     return (
         <div className='course-container'>
             {isCourseInList(course, conflictingCourses) ?
@@ -15,7 +18,7 @@ const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) =>
                         <br></br>
                         <div id='course-meeting'>
                             <h5 >Meets: {course.meets}</h5>
-                            {user === null || user === undefined ? 
+                            {!(profile?.isAdmin) ? 
                             ''
                             :
                             <p><Link to={`/courses/${course.term.charAt(0) + course.number}`}>Edit course details</Link></p>
@@ -30,7 +33,7 @@ const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) =>
                         <div id="spacer"></div>
                         <div id='course-meeting'>
                         <h5 >Meets: {course.meets}</h5>
-                            {user === null || user === undefined ? 
+                            {!(profile?.isAdmin) ? 
                             ''
                             :
                             <p><Link to={`/courses/${course.term.charAt(0) + course.number}`}>Edit course details</Link></p>
