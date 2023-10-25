@@ -12,7 +12,7 @@ const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) =>
     return (
         <div className='course-container'>
             {isCourseInList(course, conflictingCourses) ?
-                <div className="course card m-1 p-2" >
+                <div className="course card m-1 p-2" data-cy="course" >
                     <div className='conflict'>
                         <h4 key={course.number}> {course.term} CS {course.number}: {course.title}</h4>
                         <br></br>
@@ -27,7 +27,7 @@ const Course = ({ id, course, selected, toggleSelected, conflictingCourses }) =>
                     </div>
                 </div>
                 :
-                <div className="course card m-1 p-2" onClick={() => toggleSelected(course)}>
+                <div className="course card m-1 p-2" data-cy="course" onClick={() => toggleSelected(course)}>
                     <div className={`card-body ${selected.includes(id) ? 'selected' : ''}`}>
                         <h4 key={course.number}> {course.term} CS {course.number}: {course.title}</h4>
                         <div id="spacer"></div>
